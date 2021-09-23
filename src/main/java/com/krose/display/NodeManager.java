@@ -12,7 +12,7 @@ public class NodeManager {
     private Output output;
     private Input input;
 
-    private NodeManager () {
+    public NodeManager () {
         this.nodeMap = new HashMap<>();
         this.currentNode = null;
         this.output = null;
