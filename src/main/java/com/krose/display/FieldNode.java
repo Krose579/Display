@@ -9,9 +9,9 @@ public abstract class FieldNode extends Node {
     }
 
     public void execute() {
-        NodeManager.getInstance().getOutput().write(String.format("Enter %s:", label));
-        setValue(getInput());
+        getOutput().write(String.format("Enter %s:", label));
+        setValue(handleInput());
     }
 
-    protected abstract Object getInput();
+    protected abstract Object handleInput();
 }

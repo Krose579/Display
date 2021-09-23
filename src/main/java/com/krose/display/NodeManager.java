@@ -7,37 +7,43 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NodeManager {
-    private static NodeManager instance;
-
-    private final Input input;
-    private final Output output;
     private final Map<String, NodeContainer> nodeMap;
     private NodeContainer currentNode;
+    private Output output;
+    private Input input;
 
-    private NodeManager (Input input, Output output) {
-        this.input = input;
-        this.output = output;
+    private NodeManager () {
         this.nodeMap = new HashMap<>();
         this.currentNode = null;
-    }
-
-    public Input getInput() {
-        return input;
-    }
-
-    public Output getOutput() {
-        return output;
+        this.output = null;
+        this.input = null;
     }
 
     public void addNodeContainer (NodeContainer container) {
         nodeMap.put(container.getId(), container);
+        container.setOutput(output);
+        container.setInput(input);
     }
 
-    public void start (String id) {
-        start(nodeMap.get(id));
+    public NodeContainer getNodeContainer (String id) {
+        return nodeMap.get(id);
     }
 
-    public void start (NodeContainer container) {
+    public void setOutput(Output output) {
+        this.output = output;
+        for (NodeContainer container : nodeMap.values()) container.setOutput(output);
+    }
+
+    public void setInput(Input input) {
+        this.input = input;
+        for (NodeContainer container : nodeMap.values()) container.setInput(input);
+    }
+
+    public void next(String id) {
+        next(getNodeContainer(id));
+    }
+
+    public void next(NodeContainer container) {
         this.currentNode = container;
     }
 
@@ -48,14 +54,5 @@ public class NodeManager {
             prevNode.execute();
             prevNode.exit();
         }
-    }
-
-    public static NodeManager createNewInstance(Input input, Output output) {
-        instance = new NodeManager(input, output);
-        return instance;
-    }
-
-    public static NodeManager getInstance() {
-        return instance;
     }
 }

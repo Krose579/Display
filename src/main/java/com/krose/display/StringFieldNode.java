@@ -8,7 +8,7 @@ public class StringFieldNode extends FieldNode {
     }
 
     @Override
-    protected Object getInput() {
-        return NodeManager.getInstance().getInput().getString();
+    protected Object handleInput() {
+        return getInput().getString();
     }
 }

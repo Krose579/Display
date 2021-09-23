@@ -6,7 +6,7 @@ public class DoubleFieldNode extends FieldNode {
     }
 
     @Override
-    protected Object getInput() {
-        return NodeManager.getInstance().getInput().getDouble();
+    protected Object handleInput() {
+        return getInput().getDouble();
     }
 }

@@ -6,7 +6,7 @@ public class IntegerFieldNode extends FieldNode {
     }
 
     @Override
-    protected Object getInput() {
-        return NodeManager.getInstance().getInput().getInteger();
+    protected Object handleInput() {
+        return getInput().getInteger();
     }
 }

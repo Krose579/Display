@@ -14,7 +14,7 @@ public class MenuNode extends Node {
 
     @Override
     public void execute() {
-        Output output = NodeManager.getInstance().getOutput();
+        Output output = getOutput();
         output.writeDivider();
         output.write(title, Output.Alignment.CENTER);
         output.writeDivider();
@@ -23,6 +23,6 @@ public class MenuNode extends Node {
         }
         output.writeDivider();
         output.write("Enter Option:");
-        setValue(NodeManager.getInstance().getInput().getInteger());
+        setValue(getInput().getInteger());
     }
 }

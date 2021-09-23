@@ -1,5 +1,8 @@
 package com.krose.display;
 
+import com.krose.io.Input;
+import com.krose.io.Output;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +10,8 @@ public class NodeContainer {
     private final String id;
     private final List<Node> nodes;
     private OnNodeContainerExitListener listener;
+    private Output output;
+    private Input input;
 
     public NodeContainer (String id) {
         this(id, null);
@@ -22,12 +27,24 @@ public class NodeContainer {
         return id;
     }
 
-    public boolean addNode (Node node) {
-        return nodes.add(node);
+    public void addNode (Node node) {
+        node.setOutput(output);
+        node.setInput(input);
+        nodes.add(node);
     }
 
     public void setListener (OnNodeContainerExitListener listener) {
         this.listener = listener;
+    }
+
+    public void setOutput(Output output) {
+        this.output = output;
+        for (Node node : nodes) node.setOutput(output);
+    }
+
+    public void setInput(Input input) {
+        this.input = input;
+        for (Node node : nodes) node.setInput(input);
     }
 
     public void execute () {
