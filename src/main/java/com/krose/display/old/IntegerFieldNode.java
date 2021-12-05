@@ -1,4 +1,4 @@
-package com.krose.display;
+package com.krose.display.old;
 
 public class IntegerFieldNode extends FieldNode {
     public IntegerFieldNode(String id, String label) {

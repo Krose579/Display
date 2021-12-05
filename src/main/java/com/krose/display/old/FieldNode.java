@@ -1,4 +1,4 @@
-package com.krose.display;
+package com.krose.display.old;
 
 public abstract class FieldNode extends Node {
     private final String label;

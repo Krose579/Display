@@ -1,4 +1,4 @@
-package com.krose.display;
+package com.krose.display.old;
 
 import com.krose.io.Input;
 import com.krose.io.Output;
