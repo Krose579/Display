@@ -1,6 +1,4 @@
-package com.krose.display;
-
-import com.krose.io.Input;
+package com.krose.display.old;
 
 public class StringFieldNode extends FieldNode {
     public StringFieldNode(String id, String label) {
