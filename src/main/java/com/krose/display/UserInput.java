@@ -1,53 +1,46 @@
 package com.krose.display;
 
-public abstract class UserInput<T, U> {
-    public boolean isSuccess() {
-        return this instanceof Success;
+public final class UserInput<T> {
+    private static final int CODE_SUCCESS = 0;
+    private static final int CODE_FAILURE = 1;
+
+    private final T value;
+    private final int statusCode;
+    private final String failureMessage;
+    private final boolean isRetryAllowed;
+
+    private UserInput(T value, int statusCode, String failureMessage, boolean isRetryAllowed) {
+        this.value = value;
+        this.statusCode = statusCode;
+        this.failureMessage = failureMessage;
+        this.isRetryAllowed = isRetryAllowed;
+    }
+
+    public boolean isSuccessful() {
+        return statusCode == CODE_SUCCESS;
     }
 
     public boolean isFailure() {
-        return this instanceof Failure;
+        return statusCode == CODE_FAILURE;
     }
 
-    public static final class Success<T> extends UserInput<T, Void> {
-        private final T value;
-
-        public Success(T value) {
-            this.value = value;
-        }
-
-        public T getValue() {
-            return value;
-        }
+    public boolean isRetryAllowed() {
+        return isRetryAllowed;
     }
 
-    public static final class Failure<U extends Exception> extends UserInput<Void, U> {
-        private final U exception;
-        private final String retryMessage;
-        private final boolean isRetryAllowed;
+    public T getValue() {
+        return value;
+    }
 
-        public Failure(U exception) {
-            this.exception = exception;
-            this.retryMessage = null;
-            this.isRetryAllowed = false;
-        }
+    public String getFailureMessage() {
+        return failureMessage;
+    }
 
-        public Failure(U exception, String retryMessage) {
-            this.exception = exception;
-            this.retryMessage = retryMessage;
-            this.isRetryAllowed = true;
-        }
+    public static <U> UserInput<U> successful(U value) {
+        return new UserInput<>(value, CODE_SUCCESS, null, false);
+    }
 
-        public U getException() {
-            return exception;
-        }
-
-        public String getRetryMessage() {
-            return retryMessage;
-        }
-
-        public boolean isRetryAllowed() {
-            return isRetryAllowed;
-        }
+    public static <U> UserInput<U> failure(String failureMessage, boolean isRetryAllowed) {
+        return new UserInput<>(null, CODE_FAILURE, failureMessage, isRetryAllowed);
     }
 }
