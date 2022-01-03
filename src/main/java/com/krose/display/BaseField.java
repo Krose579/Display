@@ -1,44 +1,18 @@
 package com.krose.display;
 
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.assistedinject.AssistedInject;
 import com.krose.io.Input;
 import com.krose.io.Output;
 
-public abstract class BaseField<T> implements Displayable {
-    private T value;
-    private final String label;
-    private final Input input;
-    private final Output output;
+import javax.inject.Inject;
 
-    public BaseField(String label, Input input, Output output) {
-        this.value = null;
-        this.label = label;
-        this.input = input;
-        this.output = output;
-    }
-
-    public T getValue() {
-        return value;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    protected Input getInput() {
-        return input;
-    }
-
-    protected Output getOutput() {
-        return output;
+public abstract class BaseField<T> extends Screen.ValueElement<T> {
+    @Inject
+    protected BaseField(@Assisted("id") String id, @Assisted("label") String label, Output output, Input input) {
+        super(id, label, output, input);
     }
 
     @Override
-    public void display() {
-        while (value == null) {
-            output.write(label + ": ");
-            value = handleInput();
-        }
-    }
-
-    protected abstract T handleInput();
+    protected final void displayOutput() { /* IGNORE FOR FIELDS */ }
 }

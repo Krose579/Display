@@ -1,21 +1,24 @@
 package com.krose.display;
 
+import com.google.inject.assistedinject.Assisted;
 import com.krose.io.Input;
 import com.krose.io.Output;
 
+import javax.inject.Inject;
 import java.io.IOException;
 
 public class BooleanField extends BaseField<Boolean> {
-    public BooleanField(String label, Input input, Output output) {
-        super(label, input, output);
+    @Inject
+    protected BooleanField(@Assisted("id") String id, @Assisted("label") String label, Output output, Input input) {
+        super(id, label, output, input);
     }
 
     @Override
-    protected Boolean handleInput() {
+    protected UserInput<Boolean> requestUserInput() {
         try {
-            return getInput().getBoolean();
+            return UserInput.successful(getInput().getBoolean());
         } catch (IOException e) {
-            throw new DisplayableException("A Technical Error Occurred.", e);
+            return UserInput.failure("Could not get input.", false);
         }
     }
 }
