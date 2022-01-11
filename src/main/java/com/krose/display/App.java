@@ -2,7 +2,7 @@ package com.krose.display;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.krose.display.guice.DefaultScreenModule;
+import com.krose.display.guice.ApplicationModule;
 import com.krose.display.guice.ElementFactory;
 import com.krose.display.guice.ScreenFactory;
 import com.krose.display.guice.SystemIOModule;
@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class App {
     public static void main(String[] args) {
-        Injector injector = Guice.createInjector(new SystemIOModule(), new DefaultScreenModule());
+        Injector injector = Guice.createInjector(new SystemIOModule(), new ApplicationModule());
         ScreenFactory screenFactory = injector.getInstance(ScreenFactory.class);
         // Create Screens
         Screen mainScreen = screenFactory.create("main");

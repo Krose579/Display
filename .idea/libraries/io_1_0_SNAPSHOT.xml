@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="io-1.0-SNAPSHOT">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../RoseIO/out/artifacts/io-1.0-SNAPSHOT.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
